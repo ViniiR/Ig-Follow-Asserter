@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "igfa",
+  "version": "0.1",
+
+  "description": "Shows instagram users who don't follow you back",
+
+  "icons": {
+    "48": "src/assets/border-48.png"
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "48": "src/assets/border-48.png"
+    }
+  },
+  "permissions": ["scripting", "tabs"],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "test@example.com"
+    }
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.instagram.com/*", "<all_urls>"],
+      "js": ["run-script.js"]
+    }
+  ]
+}
