@@ -6,18 +6,28 @@
     "description": "Shows instagram users who don't follow you back",
 
     "icons": {
-        "48": "src/assets/border-48.png"
+        "16": "igfa.svg",
+        "24": "igfa.svg",
+        "32": "igfa.svg",
+        "48": "igfa.svg",
+        "64": "igfa.svg",
+        "96": "igfa.svg"
     },
     "action": {
         "default_popup": "index.html",
         "default_icon": {
-            "48": "src/assets/border-48.png"
+            "16": "igfa.svg",
+            "24": "igfa.svg",
+            "32": "igfa.svg",
+            "48": "igfa.svg",
+            "64": "igfa.svg",
+            "96": "igfa.svg"
         }
     },
     "permissions": ["scripting", "tabs"],
     "browser_specific_settings": {
         "gecko": {
-            "id": "test@example.com"
+            "id": "none@igfa.none"
         }
     },
 

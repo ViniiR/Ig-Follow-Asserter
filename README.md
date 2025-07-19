@@ -18,3 +18,7 @@ usage:
 \*²: profiles with too many followers do not show all of its followers (e.g. 1M+ followers). 
 \*³: you may need to be Logged in. 
 \*⁴: if it's your own account it can be private. 
+
+credits: 
+- icons iconpacks.net 
+- icons pikpng.com 
