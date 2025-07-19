@@ -1,17 +1,24 @@
-#root {
-    width: auto;
+#root,
+body {
+    width: 150px;
     height: 100%;
-    padding: 10px;
+    padding: 0px;
+    background-color: darkgray;
 }
 .popup {
     display: flex;
     flex-direction: column;
+    padding: 5px;
     gap: 5px;
     button {
-        min-width: 100%;
+        min-width: 100px;
+        border-radius: 5px;
+        padding: 5px;
         color: white;
         font-weight: 500;
+        height: 50px;
         font-size: 1rem;
+        border: none;
     }
     .run {
         background-color: blue;
