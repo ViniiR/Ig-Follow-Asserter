@@ -1,30 +1,20 @@
-# React + TypeScript + Vite
+# Ig Follow Asserter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is not affiliated with Instagram, Meta nor any of its parent companies. 
 
-Currently, two official plugins are available:
+This is a Firefox extension capable of comparing a Instagram user's follower and following lists, 
+users who are in the longer list\*¹, and not on the shorter one, will be displayed to as Not following you back. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+usage:
+- Open instagram.com, go to a public profile\*²\*³\*⁴ 
+- Open Following or Followers list, scroll until it shows all Followers(or Following) 
+- Click "Run" on the Extension Popup 
+- Close the list, open the other one and repeat the process 
+- After Pressing "Run" on both lists, Click "Compare" on the Extension Popup 
+- It should show a "List of Shame" with users who do not follow back 
+- You may need to reload the website to use it again 
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+\*¹: the longer list is assumed to be the following list. 
+\*²: profiles with too many followers do not show all of its followers (e.g. 1M+ followers). 
+\*³: you may need to be Logged in. 
+\*⁴: if it's your own account it can be private. 
