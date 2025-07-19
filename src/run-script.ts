@@ -22,6 +22,7 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
             case "readPage": {
                 const list = document.querySelector(LIST_SELECTOR);
                 if (list == null) {
+                    alert("Error: Instagram list not found.");
                     console.error("Error: Instagram list not found.");
                     return;
                 }
@@ -34,6 +35,7 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
                     simpleSecondList.push(...personList);
                 }
 
+                alert(`Scanned ${list.childElementCount} users`);
                 break;
             }
             case "compareFollowers": {
