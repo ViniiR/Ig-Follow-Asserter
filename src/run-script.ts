@@ -13,9 +13,7 @@ type Person = {
 
 let isFirstTime = true;
 // bigger list should be following
-const firstList: Array<HTMLDivElement> = [];
 const simpleFirstList: Person[] = [];
-const secondList: Array<HTMLDivElement> = [];
 const simpleSecondList: Person[] = [];
 
 browser.runtime.onMessage.addListener((_req, _sen, _res) => {
@@ -28,14 +26,12 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
                     return;
                 }
 
-                if (isFirstTime && firstList.length === 0) {
+                if (isFirstTime && simpleFirstList.length === 0) {
                     const personList = createPersonList(list);
-                    simpleFirstList.push(...personList[0]);
-                    firstList.push(...personList[1]);
-                } else if (!isFirstTime && secondList.length === 0) {
+                    simpleFirstList.push(...personList);
+                } else if (!isFirstTime && simpleSecondList.length === 0) {
                     const personList = createPersonList(list);
-                    simpleSecondList.push(...personList[0]);
-                    secondList.push(...personList[1]);
+                    simpleSecondList.push(...personList);
                 }
 
                 break;
@@ -51,7 +47,7 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
                 );
 
                 const isFirstListFollowers =
-                    firstList.length < secondList.length;
+                    simpleFirstList.length < simpleSecondList.length;
 
                 if (isFirstListFollowers) {
                     secondListDiscriminators.forEach((discriminator) => {
@@ -122,11 +118,8 @@ function createElementList(list: Array<Person>): HTMLUListElement {
 }
 
 // this function is ass
-function createPersonList(
-    list: Element,
-): [Array<Person>, Array<HTMLDivElement>] {
-    const personList = [];
-    const personObjectList: Array<Person> = [];
+function createPersonList(list: Element): Array<Person> {
+    const personList: Array<Person> = [];
     for (const child of list.children) {
         const person = {
             name: child.querySelector(NAME_SELECTOR)?.innerHTML ?? "Not Found",
@@ -137,23 +130,7 @@ function createPersonList(
                 (child.querySelector(IMAGE_SELECTOR) as HTMLImageElement) ??
                 "Not Found",
         };
-        const nameElement = document.createElement("span");
-        const discriminatorElement = document.createElement("span");
-        const imgElement = person.picture;
-
-        nameElement.appendChild(document.createTextNode(person.name));
-        discriminatorElement.appendChild(
-            document.createTextNode(person.discriminator),
-        );
-
-        const personElement = document.createElement("div");
-        personElement.classList = "user";
-        personElement.appendChild(nameElement);
-        personElement.appendChild(discriminatorElement);
-        personElement.appendChild(imgElement);
-
-        personList.push(personElement);
-        personObjectList.push(person);
+        personList.push(person);
     }
-    return [personObjectList, personList];
+    return personList;
 }
