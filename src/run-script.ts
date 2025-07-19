@@ -1,3 +1,5 @@
+// this code looks absolutely disgusting by the way, i hadn't written anything for like 4 months
+
 const DISCRIMINATOR_SELECTOR = "._ap3a._aaco._aacw._aacx._aad7._aade";
 const NAME_SELECTOR = ".x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft";
 const LIST_SELECTOR = ".x6nl9eh > div:nth-child(1) > div:nth-child(1)";
@@ -35,10 +37,12 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
                     simpleSecondList.push(...personList[0]);
                     secondList.push(...personList[1]);
                 }
+
                 break;
             }
             case "compareFollowers": {
                 const listOfShame: Array<string> = [];
+                const followingList: Array<person> = [];
                 const firstListDiscriminators = simpleFirstList.map(
                     (item) => item.discriminator,
                 );
@@ -51,22 +55,31 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
 
                 if (isFirstListFollowers) {
                     secondListDiscriminators.forEach((discriminator) => {
-                        if (firstListDiscriminators.includes(discriminator)) {
-                            return;
-                        } else {
+                        if (!firstListDiscriminators.includes(discriminator)) {
                             listOfShame.push(discriminator);
                         }
                     });
+                    followingList.push(...simpleSecondList);
                 } else {
                     firstListDiscriminators.forEach((discriminator) => {
-                        if (secondListDiscriminators.includes(discriminator)) {
-                            return;
-                        } else {
+                        if (!secondListDiscriminators.includes(discriminator)) {
                             listOfShame.push(discriminator);
                         }
                     });
+                    followingList.push(...simpleFirstList);
                 }
-                console.log(listOfShame);
+
+                const decoratedListOfShame: person[] = [];
+                followingList.forEach((person) => {
+                    if (listOfShame.includes(person.discriminator)) {
+                        decoratedListOfShame.push(person);
+                    }
+                });
+
+                const uList = createElementList(decoratedListOfShame);
+                document.body.innerHTML = "LIST OF SHAME";
+                document.body.appendChild(uList);
+
                 break;
             }
         }
@@ -77,7 +90,38 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
         isFirstTime = false;
     }
 });
+function createElementList(list: person[]): HTMLUListElement {
+    const elementList: HTMLLIElement[] = [];
+    list.forEach((person) => {
+        const nameElement = document.createElement("span");
+        nameElement.className = "name";
+        const discriminatorElement = document.createElement("span");
+        discriminatorElement.className = "discriminator";
+        const imgElement = person.picture;
 
+        nameElement.appendChild(document.createTextNode(person.name));
+        discriminatorElement.appendChild(
+            document.createTextNode(person.discriminator),
+        );
+
+        const personElement = document.createElement("li");
+        personElement.classList = "user";
+        personElement.appendChild(nameElement);
+        personElement.appendChild(discriminatorElement);
+        personElement.appendChild(imgElement);
+
+        elementList.push(personElement);
+    });
+
+    const uList = document.createElement("ul");
+    elementList.forEach((element) => {
+        uList.appendChild(element);
+    });
+
+    return uList;
+}
+
+// this function is ass
 function createPersonList(list: Element): [person[], HTMLDivElement[]] {
     const personList = [];
     const personObjectList: person[] = [];
@@ -101,7 +145,7 @@ function createPersonList(list: Element): [person[], HTMLDivElement[]] {
         );
 
         const personElement = document.createElement("div");
-        personElement.classList = "user hidden-data-for-simplicity";
+        personElement.classList = "user";
         personElement.appendChild(nameElement);
         personElement.appendChild(discriminatorElement);
         personElement.appendChild(imgElement);
