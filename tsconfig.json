@@ -20,7 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    "types": ["chrome", "browser"]
+    "types": ["@types/firefox-webext-browser"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

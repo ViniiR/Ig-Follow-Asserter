@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+.hidden-data-for-simplicity {
+    display: none;
+}
+.user {
+    width: 200px;
+    margin: 30px 0px;
+    & > img {
+        max-width: 100px;
+        border-radius: 50px;
+    }
+    & > span:first-child {
+        font-size: 2rem;
+    }
+    & > span:nth-child(1) {
+        font-size: 1rem;
+    }
+}
