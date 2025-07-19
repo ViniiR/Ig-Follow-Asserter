@@ -5,7 +5,7 @@ const NAME_SELECTOR = ".x1lliihq.x193iq5w.x6ikm8r.x10wlt62.xlyipyv.xuxw1ft";
 const LIST_SELECTOR = ".x6nl9eh > div:nth-child(1) > div:nth-child(1)";
 const IMAGE_SELECTOR = "img";
 
-type person = {
+type Person = {
     name: string;
     discriminator: string;
     picture: HTMLImageElement;
@@ -14,9 +14,9 @@ type person = {
 let isFirstTime = true;
 // bigger list should be following
 const firstList: Array<HTMLDivElement> = [];
-const simpleFirstList: person[] = [];
+const simpleFirstList: Person[] = [];
 const secondList: Array<HTMLDivElement> = [];
-const simpleSecondList: person[] = [];
+const simpleSecondList: Person[] = [];
 
 browser.runtime.onMessage.addListener((_req, _sen, _res) => {
     try {
@@ -42,7 +42,7 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
             }
             case "compareFollowers": {
                 const listOfShame: Array<string> = [];
-                const followingList: Array<person> = [];
+                const followingList: Array<Person> = [];
                 const firstListDiscriminators = simpleFirstList.map(
                     (item) => item.discriminator,
                 );
@@ -69,7 +69,7 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
                     followingList.push(...simpleFirstList);
                 }
 
-                const decoratedListOfShame: person[] = [];
+                const decoratedListOfShame: Array<Person> = [];
                 followingList.forEach((person) => {
                     if (listOfShame.includes(person.discriminator)) {
                         decoratedListOfShame.push(person);
@@ -90,8 +90,8 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
         isFirstTime = false;
     }
 });
-function createElementList(list: person[]): HTMLUListElement {
-    const elementList: HTMLLIElement[] = [];
+function createElementList(list: Array<Person>): HTMLUListElement {
+    const elementList: Array<HTMLLIElement> = [];
     list.forEach((person) => {
         const nameElement = document.createElement("span");
         nameElement.className = "name";
@@ -122,9 +122,11 @@ function createElementList(list: person[]): HTMLUListElement {
 }
 
 // this function is ass
-function createPersonList(list: Element): [person[], HTMLDivElement[]] {
+function createPersonList(
+    list: Element,
+): [Array<Person>, Array<HTMLDivElement>] {
     const personList = [];
-    const personObjectList: person[] = [];
+    const personObjectList: Array<Person> = [];
     for (const child of list.children) {
         const person = {
             name: child.querySelector(NAME_SELECTOR)?.innerHTML ?? "Not Found",

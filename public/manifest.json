@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "igfa",
+    "name": "Instagram Follow Asserter",
     "version": "0.1",
 
     "description": "Shows instagram users who don't follow you back",
