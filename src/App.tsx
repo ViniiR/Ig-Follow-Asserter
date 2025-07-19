@@ -11,8 +11,9 @@ function App() {
         browser.tabs.sendMessage(tab, { action });
     }
     return (
-        <main>
+        <main className="popup">
             <button
+                className="run"
                 onClick={() => {
                     sendAction("readPage");
                 }}
@@ -20,6 +21,7 @@ function App() {
                 Run
             </button>
             <button
+                className="compare"
                 onClick={() => {
                     sendAction("compareFollowers");
                 }}

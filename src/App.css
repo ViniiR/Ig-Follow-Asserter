@@ -1,4 +1,22 @@
 #root {
-    width: 200px;
-    height: 100px;
+    width: auto;
+    height: 100%;
+    padding: 10px;
+}
+.popup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    button {
+        min-width: 100%;
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+    }
+    .run {
+        background-color: blue;
+    }
+    .compare {
+        background-color: green;
+    }
 }
