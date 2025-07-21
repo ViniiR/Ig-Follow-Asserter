@@ -15,7 +15,7 @@ function App() {
             <button
                 className="run"
                 onClick={() => {
-                    sendAction("readPage");
+                    sendAction("readList");
                 }}
             >
                 Run

@@ -13,13 +13,13 @@ type Person = {
 
 let isFirstTime = true;
 // bigger list should be following
-const simpleFirstList: Person[] = [];
-const simpleSecondList: Person[] = [];
+const firstList: Person[] = [];
+const secondList: Person[] = [];
 
 browser.runtime.onMessage.addListener((_req, _sen, _res) => {
     try {
         switch (_req.action) {
-            case "readPage": {
+            case "readList": {
                 const list = document.querySelector(LIST_SELECTOR);
                 if (list == null) {
                     alert("Error: Instagram list not found.");
@@ -27,29 +27,28 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
                     return;
                 }
 
-                if (isFirstTime && simpleFirstList.length === 0) {
-                    const personList = createPersonList(list);
-                    simpleFirstList.push(...personList);
-                } else if (!isFirstTime && simpleSecondList.length === 0) {
-                    const personList = createPersonList(list);
-                    simpleSecondList.push(...personList);
+                const personList = createPersonList(list);
+                if (isFirstTime && firstList.length === 0) {
+                    firstList.push(...personList);
+                } else if (!isFirstTime && secondList.length === 0) {
+                    secondList.push(...personList);
                 }
 
-                alert(`Scanned ${list.childElementCount} users`);
+                alert(`Scanned ${list.childElementCount} users.`);
                 break;
             }
             case "compareFollowers": {
                 const listOfShame: Array<string> = [];
                 const followingList: Array<Person> = [];
-                const firstListDiscriminators = simpleFirstList.map(
+                const firstListDiscriminators = firstList.map(
                     (item) => item.discriminator,
                 );
-                const secondListDiscriminators = simpleSecondList.map(
+                const secondListDiscriminators = secondList.map(
                     (item) => item.discriminator,
                 );
 
                 const isFirstListFollowers =
-                    simpleFirstList.length < simpleSecondList.length;
+                    firstList.length < secondList.length;
 
                 if (isFirstListFollowers) {
                     secondListDiscriminators.forEach((discriminator) => {
@@ -57,14 +56,14 @@ browser.runtime.onMessage.addListener((_req, _sen, _res) => {
                             listOfShame.push(discriminator);
                         }
                     });
-                    followingList.push(...simpleSecondList);
+                    followingList.push(...secondList);
                 } else {
                     firstListDiscriminators.forEach((discriminator) => {
                         if (!secondListDiscriminators.includes(discriminator)) {
                             listOfShame.push(discriminator);
                         }
                     });
-                    followingList.push(...simpleFirstList);
+                    followingList.push(...firstList);
                 }
 
                 const decoratedListOfShame: Array<Person> = [];
